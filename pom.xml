@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>paddy-fox</groupId>
+    <artifactId>selenium-cucumber-java</artifactId>
+    <version>1.0</version>
+
+    <!--PROPERTIES-->
+    <properties>
+        <!-- Versions -->
+        <!--B-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--C-->
+        <commons.configuration.version>1.10</commons.configuration.version>
+        <!--F-->
+        <failsafe.version>2.20</failsafe.version>
+        <!--J-->
+        <json.version>20160810</json.version>
+        <java.source.version>1.8</java.source.version>
+        <java.target.version>1.8</java.target.version>
+        <!--M-->
+        <maven.compiler.version>3.7.0</maven.compiler.version>
+        <!--P-->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--R-->
+        <rest.version>3.0.3</rest.version>
+        <!--S-->
+        <serenity.cucumber.version>1.5.4</serenity.cucumber.version>
+        <serenity.maven.version>1.5.9</serenity.maven.version>
+        <serenity.rest.assured.version>1.5.9</serenity.rest.assured.version>
+        <slf4j.version>1.7.25</slf4j.version>
+    </properties>
+    <!--END of PROPERTIES-->
+
+    <!--DEPENDENCIES-->
+    <dependencies>
+        <!--C-->
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons.configuration.version}</version>
+        </dependency>
+        <!--R-->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest.version}</version>
+        </dependency>
+        <!--S-->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>${serenity.cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-rest-assured</artifactId>
+            <version>${serenity.rest.assured.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.predic8/soa-model-core -->
+        <dependency>
+            <groupId>com.predic8</groupId>
+            <artifactId>soa-model-core</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+    </dependencies>
+    <!--END of DEPENDENCIES-->
+
+    <!--BUILD-->
+    <build>
+        <!--PLUGINS-->
+        <plugins>
+            <!--C-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!--F-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${failsafe.version}</version>
+                <executions>
+                    <execution>
+                        <id>acceptance-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>runners/**/*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--S-->
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <!--END of PLUGINS-->
+    </build>
+    <!--END of BUILD-->
+</project>

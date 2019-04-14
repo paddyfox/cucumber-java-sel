@@ -1,0 +1,15 @@
+package config;
+
+public class Environment {
+
+    private static final String defaultEnvironmentName = "PRD";
+
+    public static String getName() {
+        String environmentName = System.getenv("environment");
+
+        if (environmentName == null || environmentName.isEmpty()) {
+            environmentName = defaultEnvironmentName;
+        }
+        return environmentName;
+    }
+}
