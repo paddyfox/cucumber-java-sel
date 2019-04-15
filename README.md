@@ -1,7 +1,7 @@
 # Selenium-Cucumber-Java
 
-This is a simple example project which uses Selenium Webdriver and Cucumber. It is written in Java and is designed to run with Mac OSX but can be extended
- to run on other platforms easily.
+This is a simple example project which uses Selenium Webdriver and Cucumber. 
+NOTE: Change the config in serenity.properties file if you are not running from a Mac.
 
 There is a single feature file with one scenario. The scenario has two steps, see if you can extend the functionality to complete a journey.
 
