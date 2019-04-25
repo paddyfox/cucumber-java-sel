@@ -22,13 +22,12 @@
         <maven.compiler.version>3.7.0</maven.compiler.version>
         <!--P-->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!--R-->
-        <rest.version>3.0.3</rest.version>
         <!--S-->
-        <serenity.cucumber.version>1.5.4</serenity.cucumber.version>
+        <serenity.cucumber.version>1.9.37</serenity.cucumber.version>
         <serenity.maven.version>1.5.9</serenity.maven.version>
         <serenity.rest.assured.version>1.5.9</serenity.rest.assured.version>
         <slf4j.version>1.7.25</slf4j.version>
+        <soa-model-core.version>1.6.0</soa-model-core.version>
     </properties>
     <!--END of PROPERTIES-->
 
@@ -39,12 +38,6 @@
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
             <version>${commons.configuration.version}</version>
-        </dependency>
-        <!--R-->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${rest.version}</version>
         </dependency>
         <!--S-->
         <dependency>
@@ -62,17 +55,15 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.predic8/soa-model-core -->
         <dependency>
             <groupId>com.predic8</groupId>
             <artifactId>soa-model-core</artifactId>
-            <version>1.6.0</version>
+            <version>${soa-model-core.version}</version>
         </dependency>
     </dependencies>
     <!--END of DEPENDENCIES-->
@@ -91,6 +82,27 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>5.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generateRunners</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <glue>
+                                <package>step_definitions</package>
+                            </glue>
+                            <parallelScheme>SCENARIO</parallelScheme>
+                            <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!--F-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -104,8 +116,11 @@
                             <goal>integration-test</goal>
                         </goals>
                         <configuration>
+                            <parallel>classes</parallel>
+                            <threadCount>2</threadCount>
+                            <perCoreThreadCount>false</perCoreThreadCount>
                             <includes>
-                                <include>runners/**/*</include>
+                                <include>**/Parallel*IT.class</include>
                             </includes>
                         </configuration>
                     </execution>
