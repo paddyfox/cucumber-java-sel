@@ -11,7 +11,7 @@ public class TestEnvironmentSteps extends BasePage {
     private final String ENVIRONMENT = "environment";
 
     @Step
-    public void setupTestEnvironment() throws InterruptedException {
+    public void setupTestEnvironment() {
 
         // Determine the test environment. e.g. local, INT, SIT...
         ProductEnvironmentConfiguration testEnvironment = ProductEnvironmentConfiguration.getWithDefault();

@@ -9,31 +9,34 @@ import page_objects.BasePage;
 
 public class OverseasPage extends BasePage {
 
-    private static final String PAGE_HEADER = "Are you applying from the UK?";
+    private static final String PAGE_HEADER = "Do you live in the UK?";
 
-    @FindBy(id = "header") private WebElementFacade filterPageHeader;
-    @FindBy(id = "is-uk-application-true") private WebElementFacade applyFromUkButton;
-    @FindBy(id = "is-uk-application-false") private WebElementFacade applyFromOverseasButton;
+    @FindBy(className = "govuk-fieldset__heading") private WebElementFacade overseasPageHeader;
+    @FindBy(id = "is-uk-application-true-label") private WebElementFacade applyFromUkButton;
+    @FindBy(id = "is-uk-application-false-label") private WebElementFacade applyFromOverseasButton;
     @FindBy(name = "country-of-application") private WebElementFacade countryOfApplicationSelectDropdown;
+    @FindBy(className = "govuk-button") private WebElementFacade nextButton;
 
     public void verifyPageHeader() throws Exception {
-        verifyPageHeader(PAGE_HEADER, filterPageHeader);
+        verifyPageHeader(PAGE_HEADER, overseasPageHeader);
     }
 
-    public void clickYesForApplyingFromUk() {
-        clickOn(applyFromUkButton);
-    }
-
-    public void clickNoForApplyingFromUk() {
-        clickOnElement(applyFromOverseasButton);
-    }
-
-    public void chooseApplicationLocation() {
-        clickYesForApplyingFromUk();
+    public void selectIfApplyingFromTheUK(String passportType) {
+        if (passportType.contains("UK")) {
+            clickOn(applyFromUkButton);
+        }
+        else {
+            clickOn(applyFromOverseasButton);
+            selectCountryOfApplication("FR");
+        }
     }
 
     private void selectCountryOfApplication(String countryCode) {
         Select se = new Select(countryOfApplicationSelectDropdown);
         se.selectByValue(countryCode);
+    }
+
+    public void clickNext() {
+        clickOnElement(nextButton);
     }
 }

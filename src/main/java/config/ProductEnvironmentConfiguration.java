@@ -2,10 +2,13 @@ package config;
 
 import com.google.common.base.Strings;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.FileConfiguration;
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.log4j.Logger;
+import org.apache.commons.configuration2.FileBasedConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
+import java.io.File;
 
 /**
  * Get the URL config from file based on environment variables.
@@ -16,7 +19,7 @@ import org.apache.log4j.Logger;
  */
 public class ProductEnvironmentConfiguration {
 
-    private FileConfiguration properties;
+    private FileBasedConfiguration configuration;
 
     private boolean hasConfig = false;
 
@@ -30,39 +33,48 @@ public class ProductEnvironmentConfiguration {
         return new ProductEnvironmentConfiguration(environmentName);
     }
 
-    final static Logger logger = Logger.getLogger(ProductEnvironmentConfiguration.class);
-
     public ProductEnvironmentConfiguration(String environmentName) {
         if (environmentName == null || environmentName.isEmpty()) {
             throw new IllegalArgumentException("Test environment must be specified.");
         }
 
-        try {
-            String configFilePath = configDirectory + configFileNamePattern.replace(environmentReplaceMarker, environmentName);
-            properties = new PropertiesConfiguration(configFilePath);
-            properties.load();
-        } catch (ConfigurationException e) {
-            throw new IllegalStateException("Error loading environment configuration: ", e);
+        Parameters params = new Parameters();
+
+        String configFilePath = configDirectory + configFileNamePattern.replace(environmentReplaceMarker, environmentName);
+        File propertiesFile = new File(configFilePath);
+
+        FileBasedConfigurationBuilder<FileBasedConfiguration> builder =
+                new FileBasedConfigurationBuilder<FileBasedConfiguration>(PropertiesConfiguration.class)
+                        .configure(params.fileBased()
+                                .setFile(propertiesFile));
+        try
+        {
+            configuration = builder.getConfiguration();
+            // config contains all properties read from the file
+        }
+        catch (ConfigurationException cex)
+        {
+            throw new IllegalStateException("Error loading environment configuration: ", cex);
         }
 
         // File has been read and properties loaded, set hasConfig flag to true.
         this.hasConfig = true;
     }
 
-    private String getProperty(String key) {
+    private String getProperty() {
         if (!this.hasConfig) {
-            System.out.println("Config for key '" + key + "' requested but no config exists.");
+            System.out.println("Config for key '" + "appBaseUrl" + "' requested but no config exists.");
             return "";
         }
-        String prop = this.properties.getString(key);
+        String prop = this.configuration.getString("appBaseUrl");
         if (Strings.isNullOrEmpty(prop)) {
-            System.out.println("Key  '" + key + "' could not be found in config properties object.");
+            System.out.println("Key  '" + "appBaseUrl" + "' could not be found in config properties object.");
             return "";
         }
         return prop;
     }
 
     public String getAppBaseUrl() {
-        return getProperty("appBaseUrl");
+        return getProperty();
     }
 }
