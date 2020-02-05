@@ -11,9 +11,13 @@
         <!--B-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--C-->
-        <commons.configuration.version>1.10</commons.configuration.version>
+        <commons.configuration2.version>2.2</commons.configuration2.version>
+        <cassandra.all.version>3.9</cassandra.all.version>
+        <cucumber.jvm.parallel.plugin.version>5.0.0</cucumber.jvm.parallel.plugin.version>
         <!--F-->
-        <failsafe.version>2.20</failsafe.version>
+        <failsafe.version>2.22.2</failsafe.version>
+        <!--G-->
+        <guava.version>22.0</guava.version>
         <!--J-->
         <json.version>20160810</json.version>
         <java.source.version>1.8</java.source.version>
@@ -23,11 +27,10 @@
         <!--P-->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--S-->
-        <serenity.cucumber.version>1.9.37</serenity.cucumber.version>
-        <serenity.maven.version>1.5.9</serenity.maven.version>
-        <serenity.rest.assured.version>1.5.9</serenity.rest.assured.version>
-        <slf4j.version>1.7.25</slf4j.version>
-        <soa-model-core.version>1.6.0</soa-model-core.version>
+        <serenity.cucumber.version>2.1.2</serenity.cucumber.version>
+        <serenity.maven.version>2.1.2</serenity.maven.version>
+        <serenity.core.version>2.1.2</serenity.core.version>
+        <serenity.rest.assured.version>2.1.2</serenity.rest.assured.version>
     </properties>
     <!--END of PROPERTIES-->
 
@@ -35,14 +38,36 @@
     <dependencies>
         <!--C-->
         <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>${commons.configuration.version}</version>
+            <groupId>org.apache.cassandra</groupId>
+            <artifactId>cassandra-all</artifactId>
+            <version>${cassandra.all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${commons.configuration2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.temyers</groupId>
+            <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+            <version>${cucumber.jvm.parallel.plugin.version}</version>
+        </dependency>
+        <!-- G -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <!-- J -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
         </dependency>
         <!--S-->
         <dependency>
             <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-cucumber</artifactId>
+            <artifactId>serenity-cucumber4</artifactId>
             <version>${serenity.cucumber.version}</version>
         </dependency>
         <dependency>
@@ -51,19 +76,9 @@
             <version>${serenity.rest.assured.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${json.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.predic8</groupId>
-            <artifactId>soa-model-core</artifactId>
-            <version>${soa-model-core.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>${serenity.core.version}</version>
         </dependency>
     </dependencies>
     <!--END of DEPENDENCIES-->
@@ -85,7 +100,7 @@
             <plugin>
                 <groupId>com.github.temyers</groupId>
                 <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-                <version>5.0.0</version>
+                <version>${cucumber.jvm.parallel.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>generateRunners</id>

@@ -1,9 +1,10 @@
 package step_definitions;
 
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+
 import net.thucydides.core.annotations.Steps;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
 import step_definitions.serenity_steps.SpecificationsSteps;
 import step_definitions.serenity_steps.TestEnvironmentSteps;
 
