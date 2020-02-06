@@ -11,7 +11,8 @@
         <!--B-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--C-->
-        <commons.configuration2.version>2.2</commons.configuration2.version>
+        <commons.configuration2.version>2.6</commons.configuration2.version>
+        <commons.codec.version>1.14</commons.codec.version>
         <cassandra.all.version>3.9</cassandra.all.version>
         <cucumber.jvm.parallel.plugin.version>5.0.0</cucumber.jvm.parallel.plugin.version>
         <!--F-->
@@ -46,6 +47,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-configuration2</artifactId>
             <version>${commons.configuration2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.temyers</groupId>
@@ -112,7 +118,7 @@
                             <glue>
                                 <package>step_definitions</package>
                             </glue>
-                            <parallelScheme>SCENARIO</parallelScheme>
+                            <parallelScheme>FEATURE</parallelScheme>
                             <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>
                         </configuration>
                     </execution>

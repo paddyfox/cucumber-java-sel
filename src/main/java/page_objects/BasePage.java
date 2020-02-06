@@ -70,14 +70,13 @@ public class BasePage extends PageObject {
         int RETRY_COUNT = 5;
 
         while (RETRY_COUNT > 0 &&
-                (!isElementPresent(webElementFacade) ||
-                        (isElementPresent(webElementFacade) && !webElementFacade.getText().equalsIgnoreCase(expectedPageHeader)))) {
+                (isElementPresent(webElementFacade) || !webElementFacade.getText().equalsIgnoreCase(expectedPageHeader))) {
             RETRY_COUNT--;
             logger.warn("Did not get correct page title: " + expectedPageHeader + ", " + RETRY_COUNT + " tries remaining");
             Thread.sleep(1000);
         }
 
-        if (!isElementPresent(webElementFacade)) {
+        if (!isElementPresent(webElementFacade) || !webElementFacade.getText().equalsIgnoreCase(expectedPageHeader)) {
             throw new Exception("Page title: " + expectedPageHeader + " did not appear");
         }
         else {
