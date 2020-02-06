@@ -137,6 +137,7 @@
                             <goal>integration-test</goal>
                         </goals>
                         <configuration>
+                            <rerunFailingTestsCount>2</rerunFailingTestsCount>
                             <parallel>classes</parallel>
                             <threadCount>2</threadCount>
                             <perCoreThreadCount>false</perCoreThreadCount>
