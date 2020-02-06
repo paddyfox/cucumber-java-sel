@@ -11,7 +11,7 @@ public class AgePage extends BasePage {
 
     @FindBy(className = "govuk-fieldset__heading") private WebElementFacade agePageHeader;
 
-    public void verifyPageHeader() throws Exception {
+    public void verifyPageHeader() {
         verifyPageHeader(PAGE_HEADER, agePageHeader);
     }
 }

@@ -17,7 +17,7 @@ public class OverseasPage extends BasePage {
     @FindBy(name = "country-of-application") private WebElementFacade countryOfApplicationSelectDropdown;
     @FindBy(className = "govuk-button") private WebElementFacade nextButton;
 
-    public void verifyPageHeader() throws Exception {
+    public void verifyPageHeader() {
         verifyPageHeader(PAGE_HEADER, overseasPageHeader);
     }
 
