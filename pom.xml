@@ -11,7 +11,7 @@
         <!--B-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--C-->
-        <commons.configuration2.version>2.6</commons.configuration2.version>
+        <commons.configuration2.version>2.7</commons.configuration2.version>
         <commons.codec.version>1.14</commons.codec.version>
         <cassandra.all.version>3.9</cassandra.all.version>
         <cucumber.jvm.parallel.plugin.version>5.0.0</cucumber.jvm.parallel.plugin.version>
